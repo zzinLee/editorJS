@@ -1,43 +1,27 @@
 "use client";
 
-import EditorJS from "@editorjs/editorjs";
-import React, { memo, useEffect, useRef, useState } from "react";
 import { INIT_DATA, EDIT_DIV_ID } from "@/ui/components/Editor/const";
+import Editor from "./Editor";
+import { useCallback, useState, useRef } from "react";
 import { OutputData } from "@editorjs/editorjs";
-import { EDITOR_TOOLS } from "./editorTools";
 
-function Editor() {
+export default function EditorWrapper() {
   const [data, setData] = useState<OutputData>(INIT_DATA);
-  const ref = useRef<EditorJS | null>(null);
+  const doc = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!ref.current) {
-      const editor = new EditorJS({
-        holder: EDIT_DIV_ID,
-        tools: EDITOR_TOOLS,
-        data: data,
-        async onChange(api) {
-          const data = await api.saver.save();
-          setData(data);
-        },
-      });
-
-      ref.current = editor;
-    }
-
-    return () => {
-      if (ref.current && ref.current.destroy) {
-        ref.current.destroy();
-      }
-    };
-  }, [data]);
+  const handleClickSaveButton = useCallback(() => {
+    console.log(doc.current?.innerHTML);
+  }, []);
 
   return (
-    <>
-      <h1>학생 피드백</h1>
-      <div id={EDIT_DIV_ID} />
-    </>
+    <div>
+      <Editor
+        data={data}
+        onChange={setData}
+        editorBlockId={EDIT_DIV_ID}
+        editorRef={doc}
+      />
+      <button onClick={handleClickSaveButton}>Save</button>
+    </div>
   );
 }
-
-export default memo(Editor);
