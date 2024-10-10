@@ -55,11 +55,15 @@ export const INIT_DATA = {
       id: "mock_Id",
       type: "image",
       data: {
-        url: "https://cdn.pixabay.com/photo/2017/09/01/21/53/blue-2705642_1280.jpg"
+        caption: '?',
+        stretched: false,
+        url: "https://cdn.pixabay.com/photo/2017/09/01/21/53/blue-2705642_1280.jpg",
+        withBackground: false,
+        withBorder: false,
       }
     },
   ],
-  "version": "2.8.1"
+  "version": "2.30.6"
 };
 
 export const EDIT_DIV_ID = "student-feedback";
