@@ -3,7 +3,7 @@ import Header from "@editorjs/header";
 import List from "@editorjs/list";
 import Link from "@editorjs/link";
 import Delimiter from "@editorjs/delimiter";
-import CheckList from "@editorjs/checklist";
+import SimpleImage from "@editorjs/simple-image";
 
 export const EDITOR_TOOLS = {
   paragraph: {
@@ -14,5 +14,5 @@ export const EDITOR_TOOLS = {
   header: Header,
   delimiter: Delimiter,
   link: Link,
-  checkList: CheckList,
+  image: SimpleImage,
 };

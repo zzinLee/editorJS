@@ -2,10 +2,10 @@
 
 import EditorJS from "@editorjs/editorjs";
 import React, { memo, useEffect, useRef } from "react";
-import { OutputData } from "@editorjs/editorjs";
 import { EDITOR_TOOLS } from "./editorTools";
 
-import type { Dispatch, SetStateAction, RefObject } from "react";
+import type { RefObject, Dispatch, SetStateAction } from "react";
+import type { OutputData } from "@editorjs/editorjs";
 
 interface EditorProps {
   data: OutputData;
@@ -22,10 +22,13 @@ function Editor({ data, onChange, editorBlockId, editorRef }: EditorProps) {
       const editor = new EditorJS({
         holder: editorBlockId,
         tools: EDITOR_TOOLS,
-        data: data,
-        async onChange(api) {
-          const data = await api.saver.save();
-          onChange(data);
+        async onChange(api, event) {
+          const changedData = await api.saver.save();
+
+          onChange(changedData);
+        },
+        async onReady() {
+          await editor.blocks.render(data);
         },
       });
 

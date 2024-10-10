@@ -2,16 +2,20 @@
 
 import { INIT_DATA, EDIT_DIV_ID } from "@/ui/components/Editor/const";
 import Editor from "./Editor";
-import { useCallback, useState, useRef } from "react";
-import { OutputData } from "@editorjs/editorjs";
+
+import { useCallback, useRef, useState } from "react";
+import type { OutputData } from "@editorjs/editorjs";
 
 export default function EditorWrapper() {
-  const [data, setData] = useState<OutputData>(INIT_DATA);
   const doc = useRef<HTMLDivElement>(null);
+  const [data, setData] = useState<OutputData>(INIT_DATA);
 
   const handleClickSaveButton = useCallback(() => {
-    console.log(doc.current?.innerHTML);
-  }, []);
+    if (!doc.current) return;
+
+    console.log(data);
+    console.log(JSON.stringify(data));
+  }, [data]);
 
   return (
     <div>
